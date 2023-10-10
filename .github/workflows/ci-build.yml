@@ -52,7 +52,7 @@ jobs:
         env:
           CIBW_BUILD: ${{ matrix.cibw_python }}
           CIBW_ARCHS_LINUX: ${{ matrix.cibw_arch }}
-          CIBW_SKIP: "*-musllinux_*"
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-musllinux_i686 pypy* pp* *-musllinux_aarch64 *-musllinux_x86_64"
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.cibw_manylinux }}
       - uses: actions/upload-artifact@v3
         with:
