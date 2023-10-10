@@ -9,7 +9,6 @@ on:
 jobs:
   build_x86:
     name: Test cycahvore
-    needs: build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
