@@ -24,7 +24,7 @@ jobs:
       - name: Windows disable protectNTFS
         if: runner.os == 'Windows'
         run:
-          git config core.protectNTFS false
+          git config --global core.protectNTFS false
       - name: Checkout VICAR
         uses: actions/checkout@v4
         with:
