@@ -310,7 +310,7 @@ body.cython { font-family: courier; font-size: 12; }
 </pre><pre class="cython line score-0">&#xA0;<span class="">005</span>: cimport numpy as np</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">006</span>: np.import_array()</pre>
 <pre class='cython code score-0 '>  __pyx_t_9 = __pyx_f_5numpy_import_array();<span class='error_goto'> if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 6, __pyx_L1_error)</span>
-</pre><pre class="cython line score-0">&#xA0;<span class="">007</span>: from . cimport *</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">007</span>: from . cimport cahv</pre>
 <pre class="cython line score-0">&#xA0;<span class="">008</span>: </pre>
 <pre class="cython line score-148" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">009</span>: cpdef cahv_2d_to_3d(</pre>
 <pre class='cython code score-148 '>static PyObject *__pyx_pw_9cycahvore_4cahv_1cahv_2d_to_3d(PyObject *__pyx_self, 
@@ -706,7 +706,7 @@ static PyObject *__pyx_pf_9cycahvore_4cahv_cahv_2d_to_3d(CYTHON_UNUSED PyObject 
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 </pre><pre class="cython line score-0">&#xA0;<span class="">033</span>:     cdef cmod_float_t[3][2] _tmppar</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">034</span>:     cmod_cahv_2d_to_3d(&amp;pos2[0], &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;pos3[0], &amp;uvec3[0], _tmppar)</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">034</span>:     cahv.cmod_cahv_2d_to_3d(&amp;pos2[0], &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;pos3[0], &amp;uvec3[0], _tmppar)</pre>
 <pre class='cython code score-0 '>  __pyx_t_9 = 0;
   if (__pyx_t_9 &lt; 0) __pyx_t_9 += __pyx_v_pos2.shape[0];
   __pyx_t_10 = 0;
@@ -1131,7 +1131,7 @@ static PyObject *__pyx_pf_9cycahvore_4cahv_2cahv_3d_to_2d(CYTHON_UNUSED PyObject
 </pre><pre class="cython line score-0">&#xA0;<span class="">067</span>:     cdef cmod_float_t[2][3] _tmppar</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">068</span>:     cdef double _range = 0.0</pre>
 <pre class='cython code score-0 '>  __pyx_v__range = 0.0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">069</span>:     cmod_cahv_3d_to_2d(&amp;pos2[0], &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;_range, &amp;pos2[0], _tmppar)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">069</span>:     cahv.cmod_cahv_3d_to_2d(&amp;pos2[0], &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;_range, &amp;pos2[0], _tmppar)</pre>
 <pre class='cython code score-0 '>  __pyx_t_8 = 0;
   if (__pyx_t_8 &lt; 0) __pyx_t_8 += __pyx_pybuffernd_pos2.diminfo[0].shape;
   __pyx_t_9 = 0;
@@ -1617,7 +1617,7 @@ static PyObject *__pyx_pf_9cycahvore_4cahv_4cahv_3d_to_2d_ray(CYTHON_UNUSED PyOb
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 </pre><pre class="cython line score-0">&#xA0;<span class="">107</span>:     cdef cmod_float_t[4][3] _tmp_par</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">108</span>:     cmod_cahv_3d_to_2d_ray(&amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;pos3[0], &amp;uvec3[0], &amp;pos2[0], &amp;uvec2[0], _tmp_par)</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">108</span>:     cahv.cmod_cahv_3d_to_2d_ray(&amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;pos3[0], &amp;uvec3[0], &amp;pos2[0], &amp;uvec2[0], _tmp_par)</pre>
 <pre class='cython code score-0 '>  __pyx_t_9 = 0;
   if (__pyx_t_9 &lt; 0) __pyx_t_9 += __pyx_v_c.shape[0];
   __pyx_t_10 = 0;
@@ -2042,7 +2042,7 @@ static PyObject *__pyx_pf_9cycahvore_4cahv_6cahv_internal(CYTHON_UNUSED PyObject
       ((__pyx_v__s[__pyx_v_i])[__pyx_v_j]) = (*__Pyx_BufPtrStrided2d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_s.rcbuffer-&gt;pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_s.diminfo[0].strides, __pyx_t_10, __pyx_pybuffernd_s.diminfo[1].strides));
     }
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">148</span>:     cmod_cahv_internal(&amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], _s, &amp;hs, &amp;hc, &amp;vs, &amp;vc, &amp;theta, _tmp_s_int)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">148</span>:     cahv.cmod_cahv_internal(&amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], _s, &amp;hs, &amp;hc, &amp;vs, &amp;vc, &amp;theta, _tmp_s_int)</pre>
 <pre class='cython code score-0 '>  __pyx_t_10 = 0;
   if (__pyx_t_10 &lt; 0) __pyx_t_10 += __pyx_v_c.shape[0];
   __pyx_t_9 = 0;
@@ -2543,7 +2543,7 @@ static PyObject *__pyx_pf_9cycahvore_4cahv_8cahv_warp_to_cahv(CYTHON_UNUSED PyOb
 <pre class='cython code score-0 '>    __pyx_t_7 = __pyx_v_i;
     __pyx_t_11 = 2;
     (__pyx_v__tmp_inpt[2]) = (*((double const  *) ( /* dim=1 */ ((char *) (((double const  *) ( /* dim=0 */ (__pyx_v_pos1s.data + __pyx_t_7 * __pyx_v_pos1s.strides[0]) )) + __pyx_t_11)) )));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">200</span>:         cmod_cahv_warp_to_cahv(ptr_c1, ptr_a1, ptr_h1, ptr_v1, _tmp_inpt, ptr_c2, ptr_a2, ptr_h2, ptr_v2, _tmp_p3)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">200</span>:         cahv.cmod_cahv_warp_to_cahv(ptr_c1, ptr_a1, ptr_h1, ptr_v1, _tmp_inpt, ptr_c2, ptr_a2, ptr_h2, ptr_v2, _tmp_p3)</pre>
 <pre class='cython code score-0 '>    cmod_cahv_warp_to_cahv(__pyx_v_ptr_c1, __pyx_v_ptr_a1, __pyx_v_ptr_h1, __pyx_v_ptr_v1, __pyx_v__tmp_inpt, __pyx_v_ptr_c2, __pyx_v_ptr_a2, __pyx_v_ptr_h2, __pyx_v_ptr_v2, __pyx_v__tmp_p3);
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">201</span>:         pos2s[i, 0] = _tmp_p3[0]</pre>
 <pre class='cython code score-0 '>    __pyx_t_11 = __pyx_v_i;

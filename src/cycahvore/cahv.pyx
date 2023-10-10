@@ -4,7 +4,7 @@ from cython cimport boundscheck, wraparound, nogil
 import numpy as np
 cimport numpy as np
 np.import_array()
-from . cimport *
+from . cimport cahv
 
 cpdef cahv_2d_to_3d(
     double[:] pos2,
@@ -31,7 +31,7 @@ cpdef cahv_2d_to_3d(
     cdef np.ndarray[double, ndim=2] par = np.zeros((3,2), dtype=np.double)
     cdef double[:,::1] _par = par
     cdef cmod_float_t[3][2] _tmppar
-    cmod_cahv_2d_to_3d(&pos2[0], &c[0], &a[0], &h[0], &v[0], &pos3[0], &uvec3[0], _tmppar)
+    cahv.cmod_cahv_2d_to_3d(&pos2[0], &c[0], &a[0], &h[0], &v[0], &pos3[0], &uvec3[0], _tmppar)
     _par[0][0] = _tmppar[0][0]
     _par[1][0] = _tmppar[1][0]
     _par[2][0] = _tmppar[2][0]
@@ -66,7 +66,7 @@ cpdef cahv_3d_to_2d(
     cdef double[:,::1] _par = par
     cdef cmod_float_t[2][3] _tmppar
     cdef double _range = 0.0
-    cmod_cahv_3d_to_2d(&pos2[0], &c[0], &a[0], &h[0], &v[0], &_range, &pos2[0], _tmppar)
+    cahv.cmod_cahv_3d_to_2d(&pos2[0], &c[0], &a[0], &h[0], &v[0], &_range, &pos2[0], _tmppar)
     _par[0][0] = _tmppar[0][0]
     _par[0][1] = _tmppar[0][1]
     _par[0][2] = _tmppar[0][2]
@@ -105,7 +105,7 @@ cpdef cahv_3d_to_2d_ray(
     cdef np.ndarray[double, ndim=2] par = np.zeros((4,3), dtype=np.double, order='C')
     cdef double[:, ::1] _par = par
     cdef cmod_float_t[4][3] _tmp_par
-    cmod_cahv_3d_to_2d_ray(&c[0], &a[0], &h[0], &v[0], &pos3[0], &uvec3[0], &pos2[0], &uvec2[0], _tmp_par)
+    cahv.cmod_cahv_3d_to_2d_ray(&c[0], &a[0], &h[0], &v[0], &pos3[0], &uvec3[0], &pos2[0], &uvec2[0], _tmp_par)
     for i in range(4):
         for j in range(3):
             _par[i][j] = _tmp_par[i][j]
@@ -145,7 +145,7 @@ cpdef cahv_internal(
     for i in range(12):
         for j in range(12):
             _s[i][j] = s[i, j]
-    cmod_cahv_internal(&c[0], &a[0], &h[0], &v[0], _s, &hs, &hc, &vs, &vc, &theta, _tmp_s_int)
+    cahv.cmod_cahv_internal(&c[0], &a[0], &h[0], &v[0], _s, &hs, &hc, &vs, &vc, &theta, _tmp_s_int)
     for i in range(5):
         for j in range(5):
             _s_int[i][j] = _tmp_s_int[i][j]
@@ -197,7 +197,7 @@ cpdef cahv_warp_to_cahv(
         _tmp_inpt[0] = pos1s[i,0]
         _tmp_inpt[1] = pos1s[i,1]
         _tmp_inpt[2] = pos1s[i,2]
-        cmod_cahv_warp_to_cahv(ptr_c1, ptr_a1, ptr_h1, ptr_v1, _tmp_inpt, ptr_c2, ptr_a2, ptr_h2, ptr_v2, _tmp_p3)
+        cahv.cmod_cahv_warp_to_cahv(ptr_c1, ptr_a1, ptr_h1, ptr_v1, _tmp_inpt, ptr_c2, ptr_a2, ptr_h2, ptr_v2, _tmp_p3)
         pos2s[i, 0] = _tmp_p3[0]
         pos2s[i, 1] = _tmp_p3[1]
         pos2s[i, 2] = _tmp_p3[2]

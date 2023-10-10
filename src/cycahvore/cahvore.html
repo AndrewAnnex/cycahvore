@@ -308,7 +308,7 @@ body.cython { font-family: courier; font-size: 12; }
 </pre><pre class="cython line score-0">&#xA0;<span class="">003</span>: cimport numpy as np</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">004</span>: np.import_array()</pre>
 <pre class='cython code score-0 '>  __pyx_t_9 = __pyx_f_5numpy_import_array();<span class='error_goto'> if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 4, __pyx_L1_error)</span>
-</pre><pre class="cython line score-0">&#xA0;<span class="">005</span>: from .cimport *</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">005</span>: from .cimport cahvore</pre>
 <pre class="cython line score-0">&#xA0;<span class="">006</span>: </pre>
 <pre class="cython line score-289" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">007</span>: cpdef cahvore_2d_to_3d(</pre>
 <pre class='cython code score-289 '>static PyObject *__pyx_pw_9cycahvore_7cahvore_1cahvore_2d_to_3d(PyObject *__pyx_self, 
@@ -876,7 +876,7 @@ static PyObject *__pyx_pf_9cycahvore_7cahvore_cahvore_2d_to_3d(CYTHON_UNUSED PyO
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 </pre><pre class="cython line score-0">&#xA0;<span class="">047</span>:     cdef cmod_float_t[3][2] _tmp_upar</pre>
-<pre class="cython line score-20" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">048</span>:     cmod_cahvore_2d_to_3d(&amp;pos2[0], mtype, mparm, &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;o[0], &amp;r[0], &amp;e[0], approx, &amp;pos3[0], &amp;uvec3[0], _tmp_ppar, _tmp_upar)</pre>
+<pre class="cython line score-20" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">048</span>:     cahvore.cmod_cahvore_2d_to_3d(&amp;pos2[0], mtype, mparm, &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;o[0], &amp;r[0], &amp;e[0], approx, &amp;pos3[0], &amp;uvec3[0], _tmp_ppar, _tmp_upar)</pre>
 <pre class='cython code score-20 '>  __pyx_t_10 = 0;
   __pyx_t_11 = -1;
   if (__pyx_t_10 &lt; 0) {
@@ -1675,7 +1675,7 @@ static PyObject *__pyx_pf_9cycahvore_7cahvore_2cahvore_3d_to_2d(CYTHON_UNUSED Py
 </pre><pre class="cython line score-0">&#xA0;<span class="">098</span>:     cdef cmod_float_t[2][3] _tmppar</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">099</span>:     cdef double _range = 0.0</pre>
 <pre class='cython code score-0 '>  __pyx_v__range = 0.0;
-</pre><pre class="cython line score-18" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">100</span>:     cmod_cahvore_3d_to_2d(&amp;pos2[0], mtype, mparm, &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;o[0], &amp;r[0],  &amp;e[0], approx, &amp;_range, &amp;pos2[0], _tmppar)</pre>
+</pre><pre class="cython line score-18" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">100</span>:     cahvore.cmod_cahvore_3d_to_2d(&amp;pos2[0], mtype, mparm, &amp;c[0], &amp;a[0], &amp;h[0], &amp;v[0], &amp;o[0], &amp;r[0],  &amp;e[0], approx, &amp;_range, &amp;pos2[0], _tmppar)</pre>
 <pre class='cython code score-18 '>  __pyx_t_8 = 0;
   __pyx_t_9 = -1;
   if (__pyx_t_8 &lt; 0) {
@@ -2551,7 +2551,7 @@ static PyObject *__pyx_pf_9cycahvore_7cahvore_4cahvore_warp_to_cahvore(CYTHON_UN
 <pre class='cython code score-0 '>    __pyx_t_7 = __pyx_v_i;
     __pyx_t_11 = 2;
     (__pyx_v__tmp_inpt[2]) = (*((double const  *) ( /* dim=1 */ ((char *) (((double const  *) ( /* dim=0 */ (__pyx_v_pos1s.data + __pyx_t_7 * __pyx_v_pos1s.strides[0]) )) + __pyx_t_11)) )));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">182</span>:         cmod_cahvore_warp_to_cahvore(</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">182</span>:         cahvore.cmod_cahvore_warp_to_cahvore(</pre>
 <pre class='cython code score-0 '>    cmod_cahvore_warp_to_cahvore(__pyx_v_mtype, __pyx_v_mparm, __pyx_v_ptr_c1, __pyx_v_ptr_a1, __pyx_v_ptr_h1, __pyx_v_ptr_v1, __pyx_v_ptr_o1, __pyx_v_ptr_r1, __pyx_v_ptr_e1, __pyx_v__tmp_inpt, __pyx_v_rdist, __pyx_v_approx, __pyx_v_ptr_c2, __pyx_v_ptr_a2, __pyx_v_ptr_h2, __pyx_v_ptr_v2, __pyx_v_ptr_o2, __pyx_v_ptr_r2, __pyx_v_ptr_e2, __pyx_v__tmp_p3);
 </pre><pre class="cython line score-0">&#xA0;<span class="">183</span>:             mtype, mparm,</pre>
 <pre class="cython line score-0">&#xA0;<span class="">184</span>:             ptr_c1, ptr_a1, ptr_h1, ptr_v1, ptr_o1, ptr_r1, ptr_e1, _tmp_inpt,</pre>

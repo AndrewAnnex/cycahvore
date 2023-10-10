@@ -2,7 +2,7 @@ from cython cimport boundscheck, wraparound
 import numpy as np
 cimport numpy as np
 np.import_array()
-from .cimport *
+from .cimport cahvore
 
 cpdef cahvore_2d_to_3d(
     double[:] pos2,
@@ -45,7 +45,7 @@ cpdef cahvore_2d_to_3d(
     cdef np.ndarray[double, ndim=2] upar = np.zeros((3,2), dtype=np.double, order='C')
     cdef double[:,::1] _upar = upar
     cdef cmod_float_t[3][2] _tmp_upar
-    cmod_cahvore_2d_to_3d(&pos2[0], mtype, mparm, &c[0], &a[0], &h[0], &v[0], &o[0], &r[0], &e[0], approx, &pos3[0], &uvec3[0], _tmp_ppar, _tmp_upar)
+    cahvore.cmod_cahvore_2d_to_3d(&pos2[0], mtype, mparm, &c[0], &a[0], &h[0], &v[0], &o[0], &r[0], &e[0], approx, &pos3[0], &uvec3[0], _tmp_ppar, _tmp_upar)
     _ppar[0][0] = _tmp_ppar[0][0]
     _ppar[1][0] = _tmp_ppar[1][0]
     _ppar[2][0] = _tmp_ppar[2][0]
@@ -97,7 +97,7 @@ cpdef cahvore_3d_to_2d(
     cdef double[:,::1] _par = par
     cdef cmod_float_t[2][3] _tmppar
     cdef double _range = 0.0
-    cmod_cahvore_3d_to_2d(&pos2[0], mtype, mparm, &c[0], &a[0], &h[0], &v[0], &o[0], &r[0],  &e[0], approx, &_range, &pos2[0], _tmppar)
+    cahvore.cmod_cahvore_3d_to_2d(&pos2[0], mtype, mparm, &c[0], &a[0], &h[0], &v[0], &o[0], &r[0],  &e[0], approx, &_range, &pos2[0], _tmppar)
     _par[0][0] = _tmppar[0][0]
     _par[0][1] = _tmppar[0][1]
     _par[0][2] = _tmppar[0][2]
@@ -179,7 +179,7 @@ cpdef cahvore_warp_to_cahvore(
         _tmp_inpt[0] = pos1s[i,0]
         _tmp_inpt[1] = pos1s[i,1]
         _tmp_inpt[2] = pos1s[i,2]
-        cmod_cahvore_warp_to_cahvore(
+        cahvore.cmod_cahvore_warp_to_cahvore(
             mtype, mparm,
             ptr_c1, ptr_a1, ptr_h1, ptr_v1, ptr_o1, ptr_r1, ptr_e1, _tmp_inpt,
             rdist, approx,
