@@ -1,0 +1,14 @@
+# include necessary VICAR code
+include ./src/VICAR/vos/p2/sub/cahvor/*.c
+include ./src/VICAR/vos/p2/sub/mat3/*.c
+include ./src/VICAR/vos/p2/inc/cmod*.h
+include ./src/VICAR/vos/p2/inc/cahvor.h
+include ./src/VICAR/vos/p2/inc/mat3.h
+include ./src/VICAR/vos/p2/inc/mat33.h
+
+#include cycahvore files
+include ./src/cycahvore/*.pyx
+include ./src/cycahvore/*.pxd
+include ./src/cycahvore/__init__.py
+#exclude cython c files
+exclude ./src/cycahvore/*.c

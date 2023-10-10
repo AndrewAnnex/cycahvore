@@ -1,3 +1,22 @@
 [build-system]
 requires = ["setuptools>=62.0", "wheel", "Cython", "numpy"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "cycahvore"
+requires-python = ">=3.10"
+version = '0.0.1'
+classifiers = ["Private :: Do Not Upload"]
+authors = [
+    {name = "Dr. Andrew Annex", email="ama6fy@virginia.edu"}
+]
+
+
+[tool.cibuildwheel]
+# use build instead of pip to build wheels
+build-frontend = "build"
+# Only build on CPython 3.12
+build = "cp312-*"
+# Skip 32-bit builds, pypy, and musllinux
+skip = ["*-win32", "*-manylinux_i686", "*-musllinux_i686", "pypy*", "pp*", "*-musllinux_aarch64", "*-musllinux_x86_64"]
+build-verbosity = 2
