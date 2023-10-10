@@ -16,7 +16,7 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
         cibw_python: [ "cp310-*", "cp311-*", "cp312-*" ]
         cibw_manylinux: [ manylinux2014 ]
-        cibw_arch: [ "x86_64" ]
+        cibw_arch: [ "auto64" ]
     steps:
       - name: Checkout cycahvore
         uses: actions/checkout@v4
