@@ -21,11 +21,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Windows disable protectNTFS
+        if: runner.os == 'Windows'
+        run:
+          git config core.protectNTFS false
       - name: Checkout VICAR
         uses: actions/checkout@v4
         with:
           repository: NASA-AMMOS/VICAR
           path: "src/VICAR"
+          fetch-depth: null
+          filter: blob:none
       - name: ls
         run: |
           ls ./*
