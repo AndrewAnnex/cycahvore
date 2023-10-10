@@ -1,0 +1,3 @@
+[submodule "src/VICAR"]
+	path = src/VICAR
+	url = https://github.com/NASA-AMMOS/VICAR.git
