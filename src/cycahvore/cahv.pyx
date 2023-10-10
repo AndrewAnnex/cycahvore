@@ -61,8 +61,8 @@ cpdef cahv_3d_to_2d(
         par:   output partial derivative of pos2 to pos3 
 
     """
-    cdef np.ndarray[double, ndim=1] pos2 = np.zeros(2, dtype=np.double)
-    cdef np.ndarray[double, ndim=2] par = np.zeros((2,3), dtype=np.double)
+    cdef np.ndarray[double, ndim=1] pos2 = np.zeros(2, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] par = np.zeros((2,3), dtype=np.double, order='C')
     cdef double[:,::1] _par = par
     cdef cmod_float_t[2][3] _tmppar
     cdef double _range = 0.0
@@ -76,6 +76,61 @@ cpdef cahv_3d_to_2d(
 
     return _range, pos2, par
 
+@boundscheck(False)
+@wraparound(False)
+cpdef cahv_3d_to_2d_v(
+    double[:,::1] pos3s,
+    double[:] c,
+    double[:] a,
+    double[:] h,
+    double[:] v):
+    """
+
+    Args:
+        pos3s: input 3D positions
+        c: input model center vector C
+        a: input model axis   vector A
+        h: input model horiz. vector H
+        v: input model vert.  vector V
+
+    Returns:
+        ranges: output range along A (same units as C)
+        pos2s:  output 2D image-plane projection 
+        pars:   output partial derivative of pos2 to pos3 
+
+    """
+    cdef int i, n
+    cdef cmod_float_t _tmp_pos3[3]
+    cdef cmod_float_t _tmp_range
+    cdef cmod_float_t _tmp_p2[2]
+    cdef cmod_float_t[2][3] _tmppar
+    n = pos3s.shape[0]
+    cdef np.ndarray[double, ndim=1] ranges = np.empty(n, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] pos2s = np.empty((n, 2), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=3] pars = np.empty((n, 2, 3), dtype=np.double, order='C')
+    # stash the cahv models into c arrays
+    cdef cmod_float_t * p_c = &c[0]
+    cdef cmod_float_t * p_a = &a[0]
+    cdef cmod_float_t * p_h = &h[0]
+    cdef cmod_float_t * p_v = &v[0]
+    for i in range(n):
+        _tmp_pos3[0] = pos3s[i, 0]
+        _tmp_pos3[1] = pos3s[i, 1]
+        _tmp_pos3[2] = pos3s[i, 2]
+        cahv.cmod_cahv_3d_to_2d(_tmp_pos3, p_c, p_a, p_h, p_v, &_tmp_range, _tmp_p2, _tmppar)
+        # update ranges
+        ranges[i] = _tmp_range
+        # update pos2s
+        pos2s[i, 0] = _tmp_p2[0]
+        pos2s[i, 1] = _tmp_p2[1]
+        # update pars
+        pars[i, 0, 0] = _tmppar[0][0]
+        pars[i, 0, 1] = _tmppar[0][1]
+        pars[i, 0, 2] = _tmppar[0][2]
+        pars[i, 1, 0] = _tmppar[1][0]
+        pars[i, 1, 1] = _tmppar[1][1]
+        pars[i, 1, 2] = _tmppar[1][2]
+    return ranges, pos2s, pars
 
 cpdef cahv_3d_to_2d_ray(
     double[:] c,
@@ -179,26 +234,25 @@ cpdef cahv_warp_to_cahv(
     Returns:
         pos2s: output 2D positions in the coordinates of the second camera model
     """
-    cdef int i, j, n
+    cdef int i, n
     cdef cmod_float_t _tmp_inpt[3]
-    cdef cmod_float_t _tmp_p3[3]
+    cdef cmod_float_t _tmp_p2[2]
     n = pos1s.shape[0]
     cdef np.ndarray[double, ndim=2] pos2s = np.empty((n, 2), dtype=np.double, order='C')
     # stash the cahv models into c arrays
-    cdef cmod_float_t * ptr_c1 = &c1[0]
-    cdef cmod_float_t * ptr_a1 = &a1[0]
-    cdef cmod_float_t * ptr_h1 = &h1[0]
-    cdef cmod_float_t * ptr_v1 = &v1[0]
-    cdef cmod_float_t * ptr_c2 = &c2[0]
-    cdef cmod_float_t * ptr_a2 = &a2[0]
-    cdef cmod_float_t * ptr_h2 = &h2[0]
-    cdef cmod_float_t * ptr_v2 = &v2[0]
+    cdef cmod_float_t * p_c1 = &c1[0]
+    cdef cmod_float_t * p_a1 = &a1[0]
+    cdef cmod_float_t * p_h1 = &h1[0]
+    cdef cmod_float_t * p_v1 = &v1[0]
+    cdef cmod_float_t * p_c2 = &c2[0]
+    cdef cmod_float_t * p_a2 = &a2[0]
+    cdef cmod_float_t * p_h2 = &h2[0]
+    cdef cmod_float_t * p_v2 = &v2[0]
     for i in range(n):
         _tmp_inpt[0] = pos1s[i,0]
         _tmp_inpt[1] = pos1s[i,1]
         _tmp_inpt[2] = pos1s[i,2]
-        cahv.cmod_cahv_warp_to_cahv(ptr_c1, ptr_a1, ptr_h1, ptr_v1, _tmp_inpt, ptr_c2, ptr_a2, ptr_h2, ptr_v2, _tmp_p3)
-        pos2s[i, 0] = _tmp_p3[0]
-        pos2s[i, 1] = _tmp_p3[1]
-        pos2s[i, 2] = _tmp_p3[2]
+        cahv.cmod_cahv_warp_to_cahv(p_c1, p_a1, p_h1, p_v1, _tmp_inpt, p_c2, p_a2, p_h2, p_v2, _tmp_p2)
+        pos2s[i, 0] = _tmp_p2[0]
+        pos2s[i, 1] = _tmp_p2[1]
     return pos2s
