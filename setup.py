@@ -27,6 +27,7 @@ extensions = [
         name="cycahvore.cahvor",
         sources=[
             './src/VICAR/vos/p2/sub/cahvor/cmod_cahvor.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahv.c',
             './src/VICAR/vos/p2/sub/cahvor/cmod_error_unique.c',
             './src/VICAR/vos/p2/sub/mat3/mat3.c',
             './src/cycahvore/cahvor.pyx',
@@ -45,6 +46,8 @@ extensions = [
         name="cycahvore.cahvore",
         sources=[
             './src/VICAR/vos/p2/sub/cahvor/cmod_cahvore.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahvor.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahv.c',
             './src/VICAR/vos/p2/sub/cahvor/cmod_psph.c',
             './src/VICAR/vos/p2/sub/cahvor/cmod_error_unique.c',
             './src/VICAR/vos/p2/sub/mat3/mat3.c',
