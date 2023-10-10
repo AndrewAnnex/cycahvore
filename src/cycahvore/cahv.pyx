@@ -66,7 +66,7 @@ cpdef cahv_3d_to_2d(
     cdef double[:,::1] _par = par
     cdef cmod_float_t[2][3] _tmppar
     cdef double _range = 0.0
-    cahv.cmod_cahv_3d_to_2d(&pos2[0], &c[0], &a[0], &h[0], &v[0], &_range, &pos2[0], _tmppar)
+    cahv.cmod_cahv_3d_to_2d(&pos3[0], &c[0], &a[0], &h[0], &v[0], &_range, &pos2[0], _tmppar)
     _par[0][0] = _tmppar[0][0]
     _par[0][1] = _tmppar[0][1]
     _par[0][2] = _tmppar[0][2]

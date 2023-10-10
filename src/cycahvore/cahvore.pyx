@@ -15,7 +15,7 @@ cpdef cahvore_2d_to_3d(
     double[:] o,
     double[:] r,
     double[:] e,
-    int approx):
+    cmod_bool_t approx):
     """
 
     Args:
@@ -71,7 +71,7 @@ cpdef cahvore_3d_to_2d(
         double[:] o,
         double[:] r,
         double[:] e,
-        int approx):
+        cmod_bool_t approx):
     """
 
     Args:
@@ -97,7 +97,7 @@ cpdef cahvore_3d_to_2d(
     cdef double[:,::1] _par = par
     cdef cmod_float_t[2][3] _tmppar
     cdef double _range = 0.0
-    cahvore.cmod_cahvore_3d_to_2d(&pos2[0], mtype, mparm, &c[0], &a[0], &h[0], &v[0], &o[0], &r[0],  &e[0], approx, &_range, &pos2[0], _tmppar)
+    cahvore.cmod_cahvore_3d_to_2d(&pos3[0], mtype, mparm, &c[0], &a[0], &h[0], &v[0], &o[0], &r[0],  &e[0], approx, &_range, &pos2[0], _tmppar)
     _par[0][0] = _tmppar[0][0]
     _par[0][1] = _tmppar[0][1]
     _par[0][2] = _tmppar[0][2]
@@ -120,7 +120,7 @@ cpdef cahvore_warp_to_cahvore(
     double[:] r1,
     double[:] e1,
     double rdist,
-    int approx,
+    cmod_bool_t approx,
     double[:] c2,
     double[:] a2,
     double[:] h2,
