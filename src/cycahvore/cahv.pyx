@@ -1,4 +1,6 @@
-from cython cimport boundscheck, wraparound
+# cython: language_level=3, boundscheck=False, emit_code_comments=True, embedsignature=True, initializedcheck=False
+
+from cython cimport boundscheck, wraparound, nogil
 import numpy as np
 cimport numpy as np
 np.import_array()
@@ -131,7 +133,7 @@ cpdef cahv_internal(
         vs: output vertical scale factor 
         vc: output vertical center 
         theta: output angle between axes 
-        s_itn: output covariance matrix 
+        s_int: output covariance matrix 
 
     """
     cdef int i, j
@@ -148,3 +150,55 @@ cpdef cahv_internal(
         for j in range(5):
             _s_int[i][j] = _tmp_s_int[i][j]
     return hs, hc, vs, vc, theta, s_int
+
+@boundscheck(False)
+@wraparound(False)
+cpdef cahv_warp_to_cahv(
+    double[:] c1,
+    double[:] a1,
+    double[:] h1,
+    double[:] v1,
+    double[:] c2,
+    double[:] a2,
+    double[:] h2,
+    double[:] v2,
+    const double[:,::1] pos1s):
+    """
+    
+    Args:
+        c1: input initial model center vector C 
+        a1: input initial model axis   vector A 
+        h1: input initial model horiz. vector H 
+        v1: input initial model vert.  vector V 
+        c2: input final model center vector C
+        a2: input final model axis   vector A
+        h2: input final model horiz. vector H
+        v2: input final model vert.  vector V
+        pos1s: input 2D positions from the first camera model 
+
+    Returns:
+        pos2s: output 2D positions in the coordinates of the second camera model
+    """
+    cdef int i, j, n
+    cdef cmod_float_t _tmp_inpt[3]
+    cdef cmod_float_t _tmp_p3[3]
+    n = pos1s.shape[0]
+    cdef np.ndarray[double, ndim=2] pos2s = np.empty((n, 2), dtype=np.double, order='C')
+    # stash the cahv models into c arrays
+    cdef cmod_float_t * ptr_c1 = &c1[0]
+    cdef cmod_float_t * ptr_a1 = &a1[0]
+    cdef cmod_float_t * ptr_h1 = &h1[0]
+    cdef cmod_float_t * ptr_v1 = &v1[0]
+    cdef cmod_float_t * ptr_c2 = &c2[0]
+    cdef cmod_float_t * ptr_a2 = &a2[0]
+    cdef cmod_float_t * ptr_h2 = &h2[0]
+    cdef cmod_float_t * ptr_v2 = &v2[0]
+    for i in range(n):
+        _tmp_inpt[0] = pos1s[i,0]
+        _tmp_inpt[1] = pos1s[i,1]
+        _tmp_inpt[2] = pos1s[i,2]
+        cmod_cahv_warp_to_cahv(ptr_c1, ptr_a1, ptr_h1, ptr_v1, _tmp_inpt, ptr_c2, ptr_a2, ptr_h2, ptr_v2, _tmp_p3)
+        pos2s[i, 0] = _tmp_p3[0]
+        pos2s[i, 1] = _tmp_p3[1]
+        pos2s[i, 2] = _tmp_p3[2]
+    return pos2s
