@@ -69,5 +69,5 @@ setup(
     name="cycahvore",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    ext_modules=cythonize(extensions, language_level=3, annotate=True, nthreads=1),
+    ext_modules=cythonize(extensions, language_level=3, annotate=True, nthreads=4),
 )

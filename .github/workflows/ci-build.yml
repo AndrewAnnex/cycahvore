@@ -13,8 +13,8 @@ jobs:
       matrix:
         include:
           - config: { "python": "cp310-*", "name": "Linux", "os": "ubuntu-latest", "arch": "x86_64" }
-          - config: { "python": "cp311-*", "name": "Linux", "os": "ubuntu-latest", "arch": "aarch64" }
-          - config: { "python": "cp312-*", "name": "Linux", "os": "ubuntu-latest", "arch": "aarch64" }
+          - config: { "python": "cp311-*", "name": "Linux", "os": "ubuntu-latest", "arch": "x86_64" }
+          - config: { "python": "cp312-*", "name": "Linux", "os": "ubuntu-latest", "arch": "x86_64" }
           - config: { "python": "cp310-*", "name": "macOS", "os": "macos-latest", "arch": "x86_64" }
           - config: { "python": "cp311-*", "name": "macOS", "os": "macos-latest", "arch": "x86_64" }
           - config: { "python": "cp312-*", "name": "macOS", "os": "macos-latest", "arch": "x86_64" }
