@@ -16,10 +16,10 @@ cpdef cahv_2d_to_3d(
     
     Args:
         pos2: input 2D position
-        c: input model center vector C
-        a: input model axis   vector A
-        h: input model horiz. vector H
-        v: input model vert.  vector V
+        c: input model center position vector   C
+        a: input model orthog. axis unit vector A
+        h: input model horizontal vector        H
+        v: input model vertical vector          V
 
     Returns:
         pos3:  output 3D origin of projection
@@ -50,10 +50,10 @@ cpdef cahv_3d_to_2d(
 
     Args:
         pos3: input 3D position 
-        c: input model center vector C
-        a: input model axis   vector A
-        h: input model horiz. vector H
-        v: input model vert.  vector V
+        c: input model center position vector   C
+        a: input model orthog. axis unit vector A
+        h: input model horizontal vector        H
+        v: input model vertical vector          V
 
     Returns:
         range: output range along A (same units as C)
@@ -142,10 +142,10 @@ cpdef cahv_3d_to_2d_ray(
     """
 
     Args:
-        c: input model center vector C
-        a: input model axis   vector A
-        h: input model horiz. vector H
-        v: input model vert.  vector V
+        c: input model center position vector   C
+        a: input model orthog. axis unit vector A
+        h: input model horizontal vector        H
+        v: input model vertical vector          V
         pos3: input 3D position of line
         uvec3: input 3D unit vector of line
 
@@ -176,10 +176,10 @@ cpdef cahv_internal(
     """
     
     Args:
-        c: input model center vector C
-        a: input model axis   vector A
-        h: input model horiz. vector H
-        v: input model vert.  vector V
+        c: input model center position vector   C
+        a: input model orthog. axis unit vector A
+        h: input model horizontal vector        H
+        v: input model vertical vector          V
         s: input 12x12 covariance of CAHV (optional, you can pass in empty array)
 
     Returns:
@@ -221,14 +221,14 @@ cpdef cahv_warp_to_cahv(
     """
     
     Args:
-        c1: input initial model center vector C 
-        a1: input initial model axis   vector A 
-        h1: input initial model horiz. vector H 
-        v1: input initial model vert.  vector V 
-        c2: input final model center vector C
-        a2: input final model axis   vector A
-        h2: input final model horiz. vector H
-        v2: input final model vert.  vector V
+        c1: input model center position vector   C
+        a1: input model orthog. axis unit vector A
+        h1: input model horizontal vector        H
+        v1: input model vertical vector          V
+        c2: input final model center position vector   C
+        a2: input final model orthog. axis unit vector A
+        h2: input final model horizontal vector        H
+        v2: input final model vertical vector          V
         pos1s: input 2D positions from the first camera model 
 
     Returns:
