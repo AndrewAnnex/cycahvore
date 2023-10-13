@@ -227,7 +227,7 @@ cpdef cahvore_warp_to_cahvore(
         pos2s: output 2D positions in the coordinates of the second camera model
     """
     cdef int i, j, n
-    cdef cmod_float_t _tmp_inpt[3]
+    cdef cmod_float_t _tmp_inpt[2]
     cdef cmod_float_t _tmp_p2[2]
     n = pos1s.shape[0]
     cdef np.ndarray[double, ndim=2] pos2s = np.empty((n, 2), dtype=np.double, order='C')
@@ -249,7 +249,6 @@ cpdef cahvore_warp_to_cahvore(
     for i in range(n):
         _tmp_inpt[0] = pos1s[i,0]
         _tmp_inpt[1] = pos1s[i,1]
-        _tmp_inpt[2] = pos1s[i,2]
         cahvore.cmod_cahvore_warp_to_cahvore(
             mtype, mparm,
             p_c1, p_a1, p_h1, p_v1, p_o1, p_r1, p_e1, _tmp_inpt,
