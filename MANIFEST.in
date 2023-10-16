@@ -1,4 +1,5 @@
 # include necessary VICAR code
+include ./src/VICAR/LICENSE
 include ./src/VICAR/vos/p2/sub/cahvor/*.c
 include ./src/VICAR/vos/p2/sub/mat3/*.c
 include ./src/VICAR/vos/p2/inc/cmod*.h

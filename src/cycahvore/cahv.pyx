@@ -6,7 +6,7 @@ cimport numpy as np
 np.import_array()
 from . cimport cahv
 
-cpdef cahv_2d_to_3d(
+def cahv_2d_to_3d(
     double[:] pos2,
     double[:] c,
     double[:] a,
@@ -26,9 +26,9 @@ cpdef cahv_2d_to_3d(
         uvec3: output unit vector ray of projection
         par:   output partial derivative of uvec3 to pos2
     """
-    cdef np.ndarray[double, ndim=1] pos3 = np.zeros(3, dtype=np.double)
-    cdef np.ndarray[double, ndim=1] uvec3 = np.zeros(3, dtype=np.double)
-    cdef np.ndarray[double, ndim=2] par = np.zeros((3,2), dtype=np.double)
+    cdef np.ndarray[double, ndim=1] pos3 = np.empty(3, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=1] uvec3 = np.empty(3, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] par = np.empty((3,2), dtype=np.double, order='C')
     cdef double[:,::1] _par = par
     cdef cmod_float_t[3][2] _tmppar
     cahv.cmod_cahv_2d_to_3d(&pos2[0], &c[0], &a[0], &h[0], &v[0], &pos3[0], &uvec3[0], _tmppar)
@@ -40,7 +40,7 @@ cpdef cahv_2d_to_3d(
     _par[2][1] = _tmppar[2][1]
     return pos3, uvec3, par
 
-cpdef cahv_3d_to_2d(
+def cahv_3d_to_2d(
     double[:] pos3,
     double[:] c,
     double[:] a,
@@ -61,8 +61,8 @@ cpdef cahv_3d_to_2d(
         par:   output partial derivative of pos2 to pos3 
 
     """
-    cdef np.ndarray[double, ndim=1] pos2 = np.zeros(2, dtype=np.double, order='C')
-    cdef np.ndarray[double, ndim=2] par = np.zeros((2,3), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=1] pos2 = np.empty(2, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] par = np.empty((2,3), dtype=np.double, order='C')
     cdef double[:,::1] _par = par
     cdef cmod_float_t[2][3] _tmppar
     cdef double _range = 0.0
@@ -78,7 +78,7 @@ cpdef cahv_3d_to_2d(
 
 @boundscheck(False)
 @wraparound(False)
-cpdef cahv_3d_to_2d_v(
+def cahv_3d_to_2d_v(
     double[:,::1] pos3s,
     double[:] c,
     double[:] a,
@@ -132,7 +132,7 @@ cpdef cahv_3d_to_2d_v(
         pars[i, 1, 2] = _tmppar[1][2]
     return ranges, pos2s, pars
 
-cpdef cahv_3d_to_2d_ray(
+def cahv_3d_to_2d_ray(
     double[:] c,
     double[:] a,
     double[:] h,
@@ -155,9 +155,9 @@ cpdef cahv_3d_to_2d_ray(
         par:   output derivative of pos2,uvec2 to uvec3
     """
     cdef int i, j
-    cdef np.ndarray[double, ndim=1] pos2 = np.zeros(2, dtype=np.double, order='C')
-    cdef np.ndarray[double, ndim=1] uvec2 = np.zeros(2, dtype=np.double, order='C')
-    cdef np.ndarray[double, ndim=2] par = np.zeros((4,3), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=1] pos2 = np.empty(2, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=1] uvec2 = np.empty(2, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] par = np.empty((4,3), dtype=np.double, order='C')
     cdef double[:, ::1] _par = par
     cdef cmod_float_t[4][3] _tmp_par
     cahv.cmod_cahv_3d_to_2d_ray(&c[0], &a[0], &h[0], &v[0], &pos3[0], &uvec3[0], &pos2[0], &uvec2[0], _tmp_par)
@@ -167,7 +167,7 @@ cpdef cahv_3d_to_2d_ray(
     return pos2, uvec2, par
 
 
-cpdef cahv_internal(
+def cahv_internal(
     double[:] c,
     double[:] a,
     double[:] h,
@@ -193,7 +193,7 @@ cpdef cahv_internal(
     """
     cdef int i, j
     cdef double hs, hc, vs, vc, theta = 0.0
-    cdef np.ndarray[double, ndim=2] s_int = np.zeros((5,5), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] s_int = np.empty((5,5), dtype=np.double, order='C')
     cdef double[:, ::1] _s_int = s_int
     cdef cmod_float_t[5][5] _tmp_s_int
     cdef cmod_float_t[12][12] _s
@@ -208,7 +208,7 @@ cpdef cahv_internal(
 
 @boundscheck(False)
 @wraparound(False)
-cpdef cahv_warp_to_cahv(
+def cahv_warp_to_cahv(
     double[:] c1,
     double[:] a1,
     double[:] h1,

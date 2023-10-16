@@ -1,10 +1,12 @@
+# cython: language_level=3, boundscheck=False, emit_code_comments=True, embedsignature=True, initializedcheck=False
+
 from cython cimport boundscheck, wraparound
 import numpy as np
 cimport numpy as np
 np.import_array()
 from .cimport cahvore
 
-cpdef cahvore_2d_to_3d(
+def cahvore_2d_to_3d(
     double[:] pos2,
     int mtype,
     double mparm,
@@ -37,12 +39,12 @@ cpdef cahvore_2d_to_3d(
         ppar:  output partial derivative of pos3  to pos2
         upar:  output partial derivative of uvec3 to pos2
     """
-    cdef np.ndarray[double, ndim=1] pos3 = np.zeros(3, dtype=np.double, order='C')
-    cdef np.ndarray[double, ndim=1] uvec3 = np.zeros(3, dtype=np.double, order='C')
-    cdef np.ndarray[double, ndim=2] ppar = np.zeros((3,2), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=1] pos3 = np.empty(3, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=1] uvec3 = np.empty(3, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] ppar = np.empty((3,2), dtype=np.double, order='C')
     cdef double[:,::1] _ppar = ppar
     cdef cmod_float_t[3][2] _tmp_ppar
-    cdef np.ndarray[double, ndim=2] upar = np.zeros((3,2), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] upar = np.empty((3,2), dtype=np.double, order='C')
     cdef double[:,::1] _upar = upar
     cdef cmod_float_t[3][2] _tmp_upar
     cahvore.cmod_cahvore_2d_to_3d(&pos2[0], mtype, mparm, &c[0], &a[0], &h[0], &v[0], &o[0], &r[0], &e[0], approx, &pos3[0], &uvec3[0], _tmp_ppar, _tmp_upar)
@@ -60,7 +62,7 @@ cpdef cahvore_2d_to_3d(
     _upar[2][1] = _tmp_upar[2][1]
     return pos3, uvec3, ppar, upar
 
-cpdef cahvore_3d_to_2d(
+def cahvore_3d_to_2d(
         double[:] pos3,
         int mtype,
         double mparm,
@@ -92,8 +94,8 @@ cpdef cahvore_3d_to_2d(
         pos2:  output 2D image-plane projection 
         par:   output partial derivative of pos2 to pos3 
     """
-    cdef np.ndarray[double, ndim=1] pos2 = np.zeros(2, dtype=np.double, order='C')
-    cdef np.ndarray[double, ndim=2] par = np.zeros((2,3), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=1] pos2 = np.empty(2, dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] par = np.empty((2,3), dtype=np.double, order='C')
     cdef double[:,::1] _par = par
     cdef cmod_float_t[2][3] _tmppar
     cdef double _range = 0.0
@@ -109,7 +111,7 @@ cpdef cahvore_3d_to_2d(
 
 @boundscheck(False)
 @wraparound(False)
-cpdef cahvore_3d_to_2d_v(
+def cahvore_3d_to_2d_v(
     double[:,::1] pos3s,
     int mtype,
     double mparm,
@@ -180,7 +182,7 @@ cpdef cahvore_3d_to_2d_v(
 
 @boundscheck(False)
 @wraparound(False)
-cpdef cahvore_warp_to_cahvore(
+def cahvore_warp_to_cahvore(
     int mtype,
     double mparm,
     double[:] c1,

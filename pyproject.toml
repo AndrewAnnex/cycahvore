@@ -4,13 +4,42 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cycahvore"
+description = "Cython wrapper for CAHVORE camera models"
 requires-python = ">=3.10"
-version = '0.0.1'
-classifiers = ["Private :: Do Not Upload"]
+dynamic = ["version", "readme"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Private :: Do Not Upload",
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Cython",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
 authors = [
     {name = "Dr. Andrew Annex", email="ama6fy@virginia.edu"}
 ]
+keywords = ["Cython", "camera model", "CAHVORE", "CAHVOR", "CAHV"]
+dependencies = [
+    "cython",
+    "numpy",
+    "pytest"
+]
 
+[project.urls]
+Repository = "https://github.com/AndrewAnnex/cycahvore.git"
+
+[tool.setuptools.dynamic]
+version = {attr = "cycahvore.__version__"}
+readme = {file = "README.md"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.cibuildwheel]
 # use build instead of pip to build wheels
@@ -20,3 +49,9 @@ build = "cp312-*"
 # Skip 32-bit builds, pypy, and musllinux
 skip = ["*-win32", "*-manylinux_i686", "*-musllinux_i686", "pypy*", "pp*", "*-musllinux_aarch64", "*-musllinux_x86_64"]
 build-verbosity = 2
+before-test = [
+    "pip install -r ci-requirements.txt"
+]
+test-command = [
+    "pytest --pyargs cycahvore"
+]
