@@ -9,7 +9,9 @@ __pycache__/
 
 # cython html outputs
 ./src/cycahvore/*.html
-
+./src/cycahvore/cahv.html
+./src/cycahvore/cahvor.html
+./src/cycahvore/cahvore.html
 # C extensions
 *.so
 

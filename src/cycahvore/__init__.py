@@ -1,4 +1,4 @@
-__version__ = '0.0.1'
+__version__ = '0.0.1-alpha'
 
 
 from .cahv import cahv_2d_to_3d, cahv_3d_to_2d
