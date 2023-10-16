@@ -48,9 +48,3 @@ build = "cp312-*"
 # Skip 32-bit builds, pypy, and musllinux
 skip = ["*-win32", "*-manylinux_i686", "*-musllinux_i686", "pypy*", "pp*", "*-musllinux_aarch64", "*-musllinux_x86_64"]
 build-verbosity = 2
-before-test = [
-    "pip install -r ci-requirements.txt"
-]
-test-command = [
-    "pytest --pyargs cycahvore"
-]
