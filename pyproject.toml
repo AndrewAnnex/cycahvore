@@ -9,7 +9,6 @@ requires-python = ">=3.10"
 dynamic = ["version", "readme"]
 license = {file = "LICENSE"}
 classifiers = [
-    "Private :: Do Not Upload",
     "Development Status :: 3 - Alpha",
     "Programming Language :: Cython",
     "Programming Language :: Python :: 3.10",
