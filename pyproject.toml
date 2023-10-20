@@ -39,6 +39,12 @@ readme = {file = "README.md"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+exclude = ["VICAR/vos/mars/src/prog/slam/", "VICAR/vos/crumbs/orbital/", "VICAR/vos/util/"]
+include = ['*/VICAR/LICENSE']
+namespaces = false
+
+[tool.setuptools.exclude-package-data]
+VICAR = [".gitattributes", "*/vos/mars/src/prog/slam/*",]
 
 [tool.cibuildwheel]
 # use build instead of pip to build wheels

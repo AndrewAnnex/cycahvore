@@ -8,6 +8,7 @@ __pycache__/
 .DS_Store
 
 # cython html outputs
+*.html
 ./src/cycahvore/*.html
 ./src/cycahvore/cahv.html
 ./src/cycahvore/cahvor.html

@@ -46,6 +46,60 @@ def cahvor_2d_to_3d(
     _par[2][1] = _tmppar[2][1]
     return pos3, uvec3, par
 
+@boundscheck(False)
+@wraparound(False)
+def cahvor_2d_to_3d_v(
+    double[:,::1] pos2,
+    double[:] c,
+    double[:] a,
+    double[:] h,
+    double[:] v,
+    double[:] o,
+    double[:] r,
+    cmod_bool_t approx):
+    """
+
+    Args:
+        pos2: input 2D position
+        c: input model center position vector   C
+        a: input model orthog. axis unit vector A
+        h: input model horizontal vector        H
+        v: input model vertical vector          V
+        o: input model optical axis unit vector O
+        r: input model radial-distortion terms  R
+        approx: input flag to use fast approximation
+
+    Returns:
+        pos3:  output 3D origins of projection
+        uvec3: output unit vector rays of projection
+        par:   output partial derivatives of uvec3 to pos2
+    """
+    cdef int i, n
+    n = pos2.shape[0]
+    cdef np.ndarray[double, ndim=2] pos3 = np.empty((n,3), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=2] uvec3 = np.empty((n,3), dtype=np.double, order='C')
+    cdef np.ndarray[double, ndim=3] pars = np.empty((n,3,2), dtype=np.double, order='C')
+    # stash the cahv models into c arrays
+    cdef cmod_float_t * p_c = &c[0]
+    cdef cmod_float_t * p_a = &a[0]
+    cdef cmod_float_t * p_h = &h[0]
+    cdef cmod_float_t * p_v = &v[0]
+    cdef cmod_float_t * p_o = &o[0]
+    cdef cmod_float_t * p_r = &r[0]
+    cdef cmod_float_t[3][2] _tmppar
+    # todo is it okay to do &pos2[i, 0] or should I do waht I do in the warp code below
+    for i in range(n):
+        cahvor.cmod_cahvor_2d_to_3d(&pos2[i,0], p_c, p_a, p_h, p_v, p_o, p_r, approx, &pos3[i, 0], &uvec3[i, 0], _tmppar)
+        # update pars
+        pars[i, 0, 0] = _tmppar[0][0]
+        pars[i, 0, 1] = _tmppar[0][1]
+        pars[i, 1, 0] = _tmppar[1][0]
+        pars[i, 1, 1] = _tmppar[1][1]
+        pars[i, 2, 0] = _tmppar[2][0]
+        pars[i, 2, 1] = _tmppar[2][1]
+    return pos3, uvec3, pars
+
+
 def cahvor_3d_to_2d(
         double[:] pos3,
         double[:] c,
