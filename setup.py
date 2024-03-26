@@ -5,6 +5,28 @@ from Cython.Build import cythonize
 
 extensions = [
     Extension(
+        name="cycahvore.cmod",
+        sources=[
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahvore.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahvor.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahv.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_psph.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_error_unique.c',
+            './src/VICAR/vos/p2/sub/mat3/mat3.c',
+            './src/cycahvore/cmod.pyx',
+        ],
+        include_dirs=[
+            './src/VICAR/vos/p2/inc/',
+            './src/VICAR/vos/p2/sub/mat3/',
+            './src/VICAR/vos/p2/sub/cahvor/',
+            numpy.get_include(),
+        ],
+        language="c",
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
+        extra_compile_args=[],
+    ),
+    Extension(
         name="cycahvore.cahv",
         sources=[
             './src/VICAR/vos/p2/sub/cahvor/cmod_cahv.c',
@@ -52,6 +74,50 @@ extensions = [
             './src/VICAR/vos/p2/sub/cahvor/cmod_error_unique.c',
             './src/VICAR/vos/p2/sub/mat3/mat3.c',
             './src/cycahvore/cahvore.pyx',
+        ],
+        include_dirs=[
+            './src/VICAR/vos/p2/inc/',
+            './src/VICAR/vos/p2/sub/mat3/',
+            './src/VICAR/vos/p2/sub/cahvor/',
+            numpy.get_include(),
+        ],
+        language="c",
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
+        extra_compile_args=[],
+    ),
+    Extension(
+        name="cycahvore.psph",
+        sources=[
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahvore.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahvor.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahv.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_psph.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_error_unique.c',
+            './src/VICAR/vos/p2/sub/mat3/mat3.c',
+            './src/cycahvore/psph.pyx',
+        ],
+        include_dirs=[
+            './src/VICAR/vos/p2/inc/',
+            './src/VICAR/vos/p2/sub/mat3/',
+            './src/VICAR/vos/p2/sub/cahvor/',
+            numpy.get_include(),
+        ],
+        language="c",
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
+        extra_compile_args=[],
+    ),
+    Extension(
+        name="cycahvore.cmod_interp",
+        sources=[
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahvore.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahvor.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_cahv.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_psph.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_interp.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod.c',
+            './src/VICAR/vos/p2/sub/cahvor/cmod_error_unique.c',
+            './src/VICAR/vos/p2/sub/mat3/mat3.c',
+            './src/cycahvore/cmod_interp.pyx',
         ],
         include_dirs=[
             './src/VICAR/vos/p2/inc/',

@@ -62,7 +62,7 @@ def cahv_2d_to_3d_v(
         uvec3: output unit vector rays of projection
         par:   output partial derivatives of uvec3 to pos2
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     n = pos2.shape[0]
     cdef np.ndarray[double, ndim=2] pos3 = np.empty((n,3), dtype=np.double, order='C')
     cdef np.ndarray[double, ndim=2] uvec3 = np.empty((n,3), dtype=np.double, order='C')
@@ -145,7 +145,7 @@ def cahv_3d_to_2d_v(
         pars:   output partial derivative of pos2 to pos3 
 
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     cdef cmod_float_t _tmp_pos3[3]
     cdef cmod_float_t _tmp_range
     cdef cmod_float_t _tmp_p2[2]
@@ -200,7 +200,7 @@ def cahv_3d_to_2d_ray(
         uvec2: output 2D unit vector back-projected line
         par:   output derivative of pos2,uvec2 to uvec3
     """
-    cdef int i, j
+    cdef Py_ssize_t i, j
     cdef np.ndarray[double, ndim=1] pos2 = np.empty(2, dtype=np.double, order='C')
     cdef np.ndarray[double, ndim=1] uvec2 = np.empty(2, dtype=np.double, order='C')
     cdef np.ndarray[double, ndim=2] par = np.empty((4,3), dtype=np.double, order='C')
@@ -237,7 +237,7 @@ def cahv_internal(
         s_int: output covariance matrix 
 
     """
-    cdef int i, j
+    cdef Py_ssize_t i, j
     cdef double hs, hc, vs, vc, theta = 0.0
     cdef np.ndarray[double, ndim=2] s_int = np.empty((5,5), dtype=np.double, order='C')
     cdef double[:, ::1] _s_int = s_int
@@ -280,7 +280,7 @@ def cahv_warp_to_cahv(
     Returns:
         pos2s: output 2D positions in the coordinates of the second camera model
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     cdef cmod_float_t _tmp_inpt[2]
     cdef cmod_float_t _tmp_p2[2]
     n = pos1s.shape[0]

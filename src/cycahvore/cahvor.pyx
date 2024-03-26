@@ -74,7 +74,7 @@ def cahvor_2d_to_3d_v(
         uvec3: output unit vector rays of projection
         par:   output partial derivatives of uvec3 to pos2
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     n = pos2.shape[0]
     cdef np.ndarray[double, ndim=2] pos3 = np.empty((n,3), dtype=np.double, order='C')
     cdef np.ndarray[double, ndim=2] uvec3 = np.empty((n,3), dtype=np.double, order='C')
@@ -170,7 +170,7 @@ def cahvor_3d_to_2d_v(
         pars:   output partial derivative of pos2 to pos3 
 
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     cdef cmod_float_t _tmp_pos3[3]
     cdef cmod_float_t _tmp_range
     cdef cmod_float_t _tmp_p2[2]
@@ -244,7 +244,7 @@ def cahvor_warp_to_cahvor(
     Returns:
         pos2s: output 2D positions in the coordinates of the second camera model
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     cdef cmod_float_t _tmp_inpt[2]
     cdef cmod_float_t _tmp_p2[2]
     n = pos1s.shape[0]
