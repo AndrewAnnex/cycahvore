@@ -14,6 +14,6 @@ global-exclude *src/VICAR/vos/util/*
 #include cycahvore files
 include ./src/cycahvore/*.pyx
 include ./src/cycahvore/*.pxd
-include ./src/cycahvore/__init__.py
+include ./src/cycahvore/*.py
 #exclude cython c files
 exclude ./src/cycahvore/*.c

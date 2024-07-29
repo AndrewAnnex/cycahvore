@@ -74,8 +74,13 @@ def cahvor_2d_to_3d_v(
         uvec3: output unit vector rays of projection
         par:   output partial derivatives of uvec3 to pos2
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     n = pos2.shape[0]
+    cdef cmod_float_t[2] _tmp_pos2 
+    cdef cmod_float_t[3] _tmp_pos3
+    cdef cmod_float_t[3] _tmp_uvec3
+    cdef cmod_float_t[3][2] _tmppar
+    # allocate outputs
     cdef np.ndarray[double, ndim=2] pos3 = np.empty((n,3), dtype=np.double, order='C')
     cdef np.ndarray[double, ndim=2] uvec3 = np.empty((n,3), dtype=np.double, order='C')
     cdef np.ndarray[double, ndim=3] pars = np.empty((n,3,2), dtype=np.double, order='C')
@@ -86,10 +91,19 @@ def cahvor_2d_to_3d_v(
     cdef cmod_float_t * p_v = &v[0]
     cdef cmod_float_t * p_o = &o[0]
     cdef cmod_float_t * p_r = &r[0]
-    cdef cmod_float_t[3][2] _tmppar
-    # todo is it okay to do &pos2[i, 0] or should I do waht I do in the warp code below
+    # todo use memory view instead?
     for i in range(n):
-        cahvor.cmod_cahvor_2d_to_3d(&pos2[i,0], p_c, p_a, p_h, p_v, p_o, p_r, approx, &pos3[i, 0], &uvec3[i, 0], _tmppar)
+        _tmp_pos2[0] = pos2[i, 0]
+        _tmp_pos2[1] = pos2[i, 1]
+        cahvor.cmod_cahvor_2d_to_3d(_tmp_pos2, p_c, p_a, p_h, p_v, p_o, p_r, approx, _tmp_pos3, _tmp_uvec3, _tmppar)
+        # update pos3
+        pos3[i, 0] = _tmp_pos3[0]
+        pos3[i, 1] = _tmp_pos3[1]
+        pos3[i, 2] = _tmp_pos3[1]
+        # update uvec3
+        uvec3[i, 0] = _tmp_uvec3[0]
+        uvec3[i, 1] = _tmp_uvec3[1]
+        uvec3[i, 2] = _tmp_uvec3[1]
         # update pars
         pars[i, 0, 0] = _tmppar[0][0]
         pars[i, 0, 1] = _tmppar[0][1]
@@ -170,7 +184,7 @@ def cahvor_3d_to_2d_v(
         pars:   output partial derivative of pos2 to pos3 
 
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     cdef cmod_float_t _tmp_pos3[3]
     cdef cmod_float_t _tmp_range
     cdef cmod_float_t _tmp_p2[2]
@@ -244,7 +258,7 @@ def cahvor_warp_to_cahvor(
     Returns:
         pos2s: output 2D positions in the coordinates of the second camera model
     """
-    cdef int i, n
+    cdef Py_ssize_t i, n
     cdef cmod_float_t _tmp_inpt[2]
     cdef cmod_float_t _tmp_p2[2]
     n = pos1s.shape[0]
@@ -269,3 +283,5 @@ def cahvor_warp_to_cahvor(
         pos2s[i, 0] = _tmp_p2[0]
         pos2s[i, 1] = _tmp_p2[1]
     return pos2s
+
+
