@@ -44,7 +44,6 @@ cdef extern from "cmod_cahvor.h":
         cmod_float_t pos2[2],	# output 2D image-plane projection
         cmod_float_t par[2][3])	# output derivative matrix of pos2 to uvec3
 
-
     cdef void cmod_cahvor_move(
         const cmod_float_t p_i[3],	# input initial pos of camera ref pt
         const cmod_float_t q_i[4],	# input initial orientation of camera ref pt
@@ -78,7 +77,6 @@ cdef extern from "cmod_cahvor.h":
         cmod_float_t *vc,		# output vertical center
         cmod_float_t *theta,	# output angle between axes
         cmod_float_t s_int[5][5])	# output covariance matrix, or NULL
-
 
     cdef cmod_stat_t cmod_cahvor_read2(
         const char *filename,	# input filename
@@ -121,7 +119,6 @@ cdef extern from "cmod_cahvor.h":
         const cmod_float_t n[3],	# input normal to the reflecting plane
         cmod_float_t s_f[18][18])	# output final covariance
 
-
     cdef void cmod_cahvor_rot_cov(
         cmod_float_t r_i[3][3],	# input initial orientation of camera ref pt
         cmod_float_t s_i[18][18],	# input initial covariance
@@ -155,12 +152,10 @@ cdef extern from "cmod_cahvor.h":
         cmod_float_t v2[3],		# output model vert.  vector V
         cmod_float_t s2[18][18])	# output covariance matrix, or NULL
 
-
     cdef void cmod_cahvor_transform_cov(
         cmod_float_t s_i[18][18],	# input initial covariance
         cmod_float_t r[3][3],	# input transform matrix of camera ref pt
         cmod_float_t s_f[18][18])	# output final covariance
-
 
     cdef cmod_stat_t cmod_cahvor_validate(
         const cmod_float_t c[3],	# input model center vector C
@@ -169,7 +164,6 @@ cdef extern from "cmod_cahvor.h":
         const cmod_float_t v[3],	# input model vert.  vector V
         const cmod_float_t o[3],	# input model optical axis unit vector O
         const cmod_float_t r[3])	# input model radial-distortion terms  R
-
 
     cdef void cmod_cahvor_warp_from_cahv(
         const cmod_float_t c1[3],	# input initial model center vector C
@@ -185,7 +179,6 @@ cdef extern from "cmod_cahvor.h":
         const cmod_float_t o2[3],	# input final model optical axis  O
         const cmod_float_t r2[3],	# input final model radial  terms R
         cmod_float_t pos2[2])	# output 2D position for CAHVOR
-
 
     cdef void cmod_cahvor_warp_model(
         const cmod_float_t c[3],	# input model center vector C
@@ -205,7 +198,6 @@ cdef extern from "cmod_cahvor.h":
         cmod_float_t *vs,		# output vertical scale factor
         cmod_float_t *vc,		# output vertical center
         cmod_float_t *theta)	# output angle between axes
-
 
     cdef void cmod_cahvor_warp_models(
         const cmod_float_t c1[3],	# input model 1 center vector C
@@ -232,8 +224,6 @@ cdef extern from "cmod_cahvor.h":
         cmod_float_t *vc,		# output vertical center
         cmod_float_t *theta)	# output angle between axes
 
-
-
     cdef void cmod_cahvor_warp_models_nodims(
         const cmod_float_t c1[3],	# input model 1 center vector C
         const cmod_float_t a1[3],	# input model 1 axis   vector A
@@ -256,7 +246,6 @@ cdef extern from "cmod_cahvor.h":
         cmod_float_t *vs,		# output vertical scale factor
         cmod_float_t *vc,		# output vertical center
         cmod_float_t *theta)	# output angle between axes
-
 
     cdef void cmod_cahvor_warp_models2(
         const cmod_float_t c1[3],	# input model 1 center vector C
@@ -283,8 +272,6 @@ cdef extern from "cmod_cahvor.h":
         cmod_float_t *vc,		# output vertical center
         cmod_float_t *theta)	# output angle between axes
 
-
-
     cdef void cmod_cahvor_warp_to_cahv(
         const cmod_float_t c1[3],	# input initial model center vector C
         const cmod_float_t a1[3],	# input initial model axis   vector A
@@ -299,7 +286,6 @@ cdef extern from "cmod_cahvor.h":
         const cmod_float_t h2[3],	# input final model horiz. vector H
         const cmod_float_t v2[3],	# input final model vert.  vector V
         cmod_float_t pos2[2])	# output 2D position for CAHV
-
 
     cdef void cmod_cahvor_warp_to_cahvor(
         const cmod_float_t c1[3],	# input initial model center vector C
